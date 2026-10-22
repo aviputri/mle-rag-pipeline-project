@@ -64,7 +64,7 @@ Both modes use the same retrieval and the same decisions; only the answer text d
 | False refusals (refused a supported question) | 2 (q07, q09) | 2 (q07, q09) |
 | Answer relevance | 0.846 | 0.654 |
 | Faithfulness (automatic rubric) | 1.000 (11/11 literal) | 0.773 (8/11 faithful) |
-| Faithfulness (after manual review) | 1.000 | 1.000 (11/11) |
+| Paraphrased sentences flagged for human review | 0 | 3 (q08, q13, q14) |
 | Citation precision | 1.000 | 1.000 |
 | Fabricated or invalid citations | 0 | 0 |
 
@@ -81,28 +81,28 @@ Both modes use the same retrieval and the same decisions; only the answer text d
   - **supported** if at least 80% of its content words (after simple suffix stripping) and every number appear in that evidence;
   - **unsupported** otherwise.
 
-  The answer's score is the share of literal or supported sentences. Non-literal sentences are flagged for manual review, because word overlap cannot prove that a paraphrase means the same thing.
+  The answer's score is the share of literal or supported sentences. Non-literal sentences are flagged for human review, because word overlap cannot prove that a paraphrase means the same thing.
 - **Citation precision:** the share of cited document IDs that are in `expected_sources`.
 
 ### Per-question results
 
-| id | expected | top-3 retrieved (score) | decision (both modes) | expected doc rank | relevance E / L | LLM faithfulness auto → manual |
+| id | expected | top-3 retrieved (score) | decision (both modes) | expected doc rank | relevance E / L | LLM faithfulness (automatic) |
 |---|---|---|---|---|---|---|
-| q01 | billing-refunds | invoice-corrections#1 (0.634), billing-refunds#2 (0.505), billing-refunds#0 (0.470) | answered ✔ | 2 | 1.00 / 1.00 | 1.00 → ✔ |
+| q01 | billing-refunds | invoice-corrections#1 (0.634), billing-refunds#2 (0.505), billing-refunds#0 (0.470) | answered ✔ | 2 | 1.00 / 1.00 | 1.00 |
 | q02 | billing-refunds | billing-refunds#1 (0.756), #0 (0.534), #2 (0.522) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 (literal) |
-| q03 | invoice-corrections | invoice-corrections#0 (0.762), #1 (0.585), billing-refunds#2 (0.434) | answered ✔ | 1 | 1.00 / 0.50 | 1.00 → ✔ |
-| q04 | account-mfa | account-mfa#0 (0.623), #1 (0.491), account-password#1 (0.283) | answered ✔ | 1 | 1.00 / 0.50 | 1.00 → ✔ |
-| q05 | account-password | account-password#0 (0.821), #1 (0.692), account-mfa#0 (0.331) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 → ✔ |
-| q06 | programme-extensions | programme-extensions#0 (0.518), #1 (0.416), programme-attendance#0 (0.329) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 → ✔ |
+| q03 | invoice-corrections | invoice-corrections#0 (0.762), #1 (0.585), billing-refunds#2 (0.434) | answered ✔ | 1 | 1.00 / 0.50 | 1.00 |
+| q04 | account-mfa | account-mfa#0 (0.623), #1 (0.491), account-password#1 (0.283) | answered ✔ | 1 | 1.00 / 0.50 | 1.00 |
+| q05 | account-password | account-password#0 (0.821), #1 (0.692), account-mfa#0 (0.331) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 |
+| q06 | programme-extensions | programme-extensions#0 (0.518), #1 (0.416), programme-attendance#0 (0.329) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 |
 | q07 | technical-api-limits | technical-incidents#1 (0.341), technical-api-limits#0 (0.305), retrieved-content-safety#2 (0.302) | **abstained ✘** | 2 | 0 / 0 | – |
-| q08 | technical-incidents | technical-incidents#0 (0.680), #1 (0.424), programme-attendance#0 (0.248) | answered ✔ | 1 | 1.00 / 1.00 | 0.00 → ✔ |
+| q08 | technical-incidents | technical-incidents#0 (0.680), #1 (0.424), programme-attendance#0 (0.248) | answered ✔ | 1 | 1.00 / 1.00 | 0.00 (flagged) |
 | q09 | privacy-data, technical-incidents | technical-incidents#1 (0.347), privacy-data#0 (0.328), account-mfa#1 (0.303) | **abstained ✘** | 1 | 0 / 0 | – |
-| q10 | retrieved-content-safety | retrieved-content-safety#0 (0.620), #2 (0.487), privacy-data#0 (0.414) | answered ✔ | 1 | 1.00 / 0.50 | 1.00 → ✔ |
+| q10 | retrieved-content-safety | retrieved-content-safety#0 (0.620), #2 (0.487), privacy-data#0 (0.414) | answered ✔ | 1 | 1.00 / 0.50 | 1.00 |
 | q11 | abstain | programme-attendance#0 (0.168), … | abstained ✔ | – | – | – |
 | q12 | abstain | technical-api-limits#0 (0.212), … | abstained ✔ | – | – | – |
-| q13 | account-mfa, privacy-data | account-mfa#1 (0.557), #0 (0.391), privacy-data#1 (0.320) | answered ✔ | 1 | 1.00 / 0.50 | 0.50 → ✔ (partial: cites one of two sources) |
-| q14 | programme-extensions | programme-extensions#1 (0.771), #0 (0.623), technical-incidents#0 (0.287) | answered ✔ | 1 | 1.00 / 0.50 | 0.00 → ✔ |
-| q15 | programme-attendance | programme-attendance#0 (0.590), #1 (0.452), privacy-data#1 (0.289) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 → ✔ |
+| q13 | account-mfa, privacy-data | account-mfa#1 (0.557), #0 (0.391), privacy-data#1 (0.320) | answered ✔ | 1 | 1.00 / 0.50 | 0.50 (1 sentence flagged; cites one of two sources) |
+| q14 | programme-extensions | programme-extensions#1 (0.771), #0 (0.623), technical-incidents#0 (0.287) | answered ✔ | 1 | 1.00 / 0.50 | 0.00 (flagged) |
+| q15 | programme-attendance | programme-attendance#0 (0.590), #1 (0.452), privacy-data#1 (0.289) | answered ✔ | 1 | 1.00 / 1.00 | 1.00 |
 | q16 | abstain | programme-attendance#1 (0.110), … | abstained ✔ | – | – | – |
 
 Full answers: `reports/evaluation/results_extractive.md` and `results_llm.md`.
@@ -162,8 +162,10 @@ Effect of the fix:
 - answer relevance: 0.577 → 0.654;
 - answers needing review: 11 → 10.
 
-**Lexical false negatives.** The rubric marked three LLM sentences unsupported
-(q08, q13, q14). On manual review, all three are faithful paraphrases:
+**Paraphrases flagged for human review.** The rubric marked three LLM sentences
+unsupported (q08, q13, q14): **3 paraphrased sentences flagged for human
+review.** They have not been manually verified, so the automatic score (0.773)
+is the reported faithfulness. The wording that caused the flags:
 
 - **q08:** "published … until resolved" vs. "posts … until resolution".
 - **q14:** "does not immediately move your deadline" vs. "does not itself change the submission deadline".
@@ -222,8 +224,9 @@ direction:
 3. **Make answer-quality checking independent and multi-source aware.** Use a
    documented human review protocol, or a validated LLM judge, for paraphrased
    answers. Allow and require citations for every needed source.
-   *Evidence:* the lexical rubric produced three false "unsupported" labels and
-   missed a Unicode issue (F4); q13 cited one of two sources.
+   *Evidence:* the lexical rubric left 3 paraphrased sentences unresolved
+   (flagged for human review) and missed a Unicode issue (F4); q13 cited one of
+   two sources.
 
 ## 7. Submission questions
 
@@ -254,11 +257,12 @@ settings were frozen in `.env.example` and committed before the final run.
   documents, and there were no uncited answers.
 - Every extractive sentence appears **literally** in the cited chunks (11/11).
 - LLM sentences were checked per sentence against the cited chunks (word and
-  number support), then manually reviewed: 11/11 faithful, with q13 partial.
+  number support): 8/11 answers fully supported, and 3 paraphrased sentences
+  (q08, q13, q14) flagged for human review.
 
 Citation correctness alone is not proof. A correctly cited sentence can still
-misstate its source, which is why the per-sentence check and the manual review
-exist. The automatic rubric is a lexical proxy, not a semantic judgement.
+misstate its source, which is why the per-sentence check exists and why
+paraphrases are flagged for human review rather than counted as faithful. The automatic rubric is a lexical proxy, not a semantic judgement.
 
 **4. What would you change before live support colleagues use it?**
 

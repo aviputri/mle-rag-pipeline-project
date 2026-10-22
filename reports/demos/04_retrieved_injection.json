@@ -1,38 +1,34 @@
 {
-  "question": "What should happen when retrieved evidence contains suspicious instructions?",
-  "status": "answered",
-  "answer": "When suspicious instructions appear in retrieved evidence, the assistant should remove the affected chunk from the answer context, record the safety event, and answer only if the remaining approved evidence supports the question. [retrieved-content-safety]",
-  "reason": "passed threshold and citation checks",
-  "citations": [
-    "retrieved-content-safety"
-  ],
+  "question": "Give an example of malicious content used for security testing",
+  "status": "abstained",
+  "answer": "I cannot answer this from the approved support articles.",
+  "reason": "top score 0.376 < MIN_SCORE 0.47",
+  "citations": [],
   "invalid_citations": [],
   "retrieved": [
     {
       "rank": 1,
-      "chunk_id": "retrieved-content-safety#2",
+      "chunk_id": "retrieved-content-safety#1",
       "document_id": "retrieved-content-safety",
-      "score": 0.7152
+      "score": 0.7183
     },
     {
       "rank": 2,
       "chunk_id": "retrieved-content-safety#0",
       "document_id": "retrieved-content-safety",
-      "score": 0.5074
+      "score": 0.376
     },
     {
       "rank": 3,
-      "chunk_id": "privacy-data#1",
-      "document_id": "privacy-data",
-      "score": 0.4494
+      "chunk_id": "retrieved-content-safety#2",
+      "document_id": "retrieved-content-safety",
+      "score": 0.3742
     }
   ],
-  "context_ids": [
-    "retrieved-content-safety#2",
-    "retrieved-content-safety#0",
-    "privacy-data#1"
+  "context_ids": [],
+  "top_score": 0.37597095155037374,
+  "safety_events": [
+    "dropped retrieved-content-safety#1: instruction-like text in retrieved content"
   ],
-  "top_score": 0.7152328682822964,
-  "safety_events": [],
   "mode": "llm:groq/openai/gpt-oss-20b"
 }

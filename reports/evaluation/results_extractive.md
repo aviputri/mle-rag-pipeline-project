@@ -5,7 +5,7 @@
 - Embedding: `sentence-transformers/all-MiniLM-L6-v2` @ `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`
 - TOP_K = 3, MIN_SCORE = 0.47 (frozen after calibration)
 - System prompt sha1: `f446011993`, git commit: `ade5597+uncommitted`
-- Run at 2026-10-22 13:51 UTC (0.2 s)
+- Run at 2026-10-22 13:51 UTC (0.2 s); re-scored 2026-10-22 13:59 UTC from the saved answers (scorer fix, no regeneration)
 
 ## Summary
 

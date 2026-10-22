@@ -9,7 +9,9 @@
     "prompt_sha1": "f446011993",
     "git_commit": "ade5597+uncommitted",
     "run_at": "2026-10-22 13:51 UTC",
-    "seconds": 13.6
+    "seconds": 13.6,
+    "rescored_at": "2026-10-22 13:59 UTC",
+    "rescored_with_commit": "4d38017"
   },
   "summary": {
     "cases": 16,
@@ -23,10 +25,10 @@
     "abstained_unsupported": 3,
     "false_answers": 0,
     "false_refusals": 2,
-    "answer_relevance": 0.577,
+    "answer_relevance": 0.654,
     "faithfulness": 0.773,
     "faithful_answers": 8,
-    "answers_needing_review": 11,
+    "answers_needing_review": 10,
     "citation_precision": 1.0,
     "status_counts": {
       "answered": 11,
@@ -80,6 +82,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "invoice-corrections#1",
+        "billing-refunds#2",
+        "billing-refunds#0"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -146,6 +153,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "billing-refunds#1",
+        "billing-refunds#0",
+        "billing-refunds#2"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -157,13 +169,12 @@
       "faithfulness": {
         "score": 1.0,
         "faithful": true,
-        "needs_review": true,
+        "needs_review": false,
         "sentences": [
           {
             "sentence": "Finance reviews a complete duplicate\u2011payment request within three business days [billing-refunds].",
-            "label": "supported",
+            "label": "literal",
             "word_support": 1.0,
-            "numbers_ok": true,
             "cited": [
               "billing-refunds"
             ]
@@ -213,6 +224,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "invoice-corrections#0",
+        "invoice-corrections#1",
+        "billing-refunds#2"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -280,6 +296,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "account-mfa#0",
+        "account-mfa#1",
+        "account-password#1"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -305,7 +326,7 @@
           {
             "sentence": "After verification, the previous authenticator will be disabled and you can enroll a new device at the next sign\u2011in [account-mfa].",
             "label": "supported",
-            "word_support": 0.9,
+            "word_support": 1.0,
             "numbers_ok": true,
             "cited": [
               "account-mfa"
@@ -355,6 +376,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "account-password#0",
+        "account-password#1",
+        "account-mfa#0"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -423,6 +449,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "programme-extensions#0",
+        "programme-extensions#1",
+        "programme-attendance#0"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -487,6 +518,7 @@
       "citations": [],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -536,13 +568,18 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "technical-incidents#0",
+        "technical-incidents#1",
+        "programme-attendance#0"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
         "reciprocal_rank": 1.0,
         "first_rank": 1
       },
-      "relevance": 0.0,
+      "relevance": 1.0,
       "citation_precision": 1.0,
       "faithfulness": {
         "score": 0.0,
@@ -602,6 +639,7 @@
       "citations": [],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -652,6 +690,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "retrieved-content-safety#0",
+        "retrieved-content-safety#2",
+        "privacy-data#0"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -720,7 +763,8 @@
       "raw_answer": "",
       "citations": [],
       "invalid_citations": [],
-      "safety_events": []
+      "safety_events": [],
+      "context_ids": []
     },
     {
       "id": "q12",
@@ -756,7 +800,8 @@
       "raw_answer": "",
       "citations": [],
       "invalid_citations": [],
-      "safety_events": []
+      "safety_events": [],
+      "context_ids": []
     },
     {
       "id": "q13",
@@ -801,6 +846,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "account-mfa#1",
+        "account-mfa#0",
+        "privacy-data#1"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -826,7 +876,7 @@
           {
             "sentence": "Instead, open a support ticket from your registered email and describe the lost\u2011device situation [account-mfa].",
             "label": "supported",
-            "word_support": 0.9,
+            "word_support": 0.889,
             "numbers_ok": true,
             "cited": [
               "account-mfa"
@@ -877,6 +927,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "programme-extensions#1",
+        "programme-extensions#0",
+        "technical-incidents#0"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -943,6 +998,11 @@
       ],
       "invalid_citations": [],
       "safety_events": [],
+      "context_ids": [
+        "programme-attendance#0",
+        "programme-attendance#1",
+        "privacy-data#1"
+      ],
       "retrieval": {
         "hit": 1,
         "recall": 1.0,
@@ -1002,7 +1062,8 @@
       "raw_answer": "",
       "citations": [],
       "invalid_citations": [],
-      "safety_events": []
+      "safety_events": [],
+      "context_ids": []
     }
   ]
 }

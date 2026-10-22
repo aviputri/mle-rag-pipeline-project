@@ -5,7 +5,7 @@
 - Embedding: `sentence-transformers/all-MiniLM-L6-v2` @ `1110a243fdf4706b3f48f1d95db1a4f5529b4d41`
 - TOP_K = 3, MIN_SCORE = 0.47 (frozen after calibration)
 - System prompt sha1: `f446011993`, git commit: `ade5597+uncommitted`
-- Run at 2026-10-22 13:51 UTC (13.6 s)
+- Run at 2026-10-22 13:51 UTC (13.6 s); re-scored 2026-10-22 13:59 UTC from the saved answers (scorer fix, no regeneration)
 
 ## Summary
 
@@ -17,10 +17,10 @@
 | decision_accuracy | 0.875 |
 | false_answers | 0 |
 | false_refusals | 2 |
-| answer_relevance | 0.577 |
+| answer_relevance | 0.654 |
 | faithfulness | 0.773 |
 | faithful_answers | 8 |
-| answers_needing_review | 11 |
+| answers_needing_review | 10 |
 | citation_precision | 1.000 |
 
 Status counts: {'answered': 11, 'abstained': 5, 'blocked_input': 0, 'citation_failed': 0, 'error': 0}
@@ -30,13 +30,13 @@ Status counts: {'answered': 11, 'abstained': 5, 'blocked_input': 0, 'citation_fa
 | id | expected | top-3 retrieved (score) | top | status | decision | first rank | relevance | faithfulness | cited |
 |---|---|---|---|---|---|---|---|---|---|
 | q01 | billing-refunds | invoice-corrections#1 (0.634), billing-refunds#2 (0.505), billing-refunds#0 (0.470) | 0.634 | answered | ok | 2 | 1.00 | 1.00 (review) | billing-refunds |
-| q02 | billing-refunds | billing-refunds#1 (0.756), billing-refunds#0 (0.534), billing-refunds#2 (0.522) | 0.756 | answered | ok | 1 | 1.00 | 1.00 (review) | billing-refunds |
+| q02 | billing-refunds | billing-refunds#1 (0.756), billing-refunds#0 (0.534), billing-refunds#2 (0.522) | 0.756 | answered | ok | 1 | 1.00 | 1.00 | billing-refunds |
 | q03 | invoice-corrections | invoice-corrections#0 (0.762), invoice-corrections#1 (0.585), billing-refunds#2 (0.434) | 0.762 | answered | ok | 1 | 0.50 | 1.00 (review) | invoice-corrections |
 | q04 | account-mfa | account-mfa#0 (0.623), account-mfa#1 (0.491), account-password#1 (0.283) | 0.623 | answered | ok | 1 | 0.50 | 1.00 (review) | account-mfa |
 | q05 | account-password | account-password#0 (0.821), account-password#1 (0.692), account-mfa#0 (0.331) | 0.821 | answered | ok | 1 | 1.00 | 1.00 (review) | account-password |
 | q06 | programme-extensions | programme-extensions#0 (0.518), programme-extensions#1 (0.416), programme-attendance#0 (0.329) | 0.518 | answered | ok | 1 | 1.00 | 1.00 (review) | programme-extensions |
 | q07 | technical-api-limits | technical-incidents#1 (0.341), technical-api-limits#0 (0.305), retrieved-content-safety#2 (0.302) | 0.341 | abstained | WRONG | 2 | 0.00 | - | - |
-| q08 | technical-incidents | technical-incidents#0 (0.680), technical-incidents#1 (0.424), programme-attendance#0 (0.248) | 0.680 | answered | ok | 1 | 0.00 | 0.00 (review) | technical-incidents |
+| q08 | technical-incidents | technical-incidents#0 (0.680), technical-incidents#1 (0.424), programme-attendance#0 (0.248) | 0.680 | answered | ok | 1 | 1.00 | 0.00 (review) | technical-incidents |
 | q09 | privacy-data, technical-incidents | technical-incidents#1 (0.347), privacy-data#0 (0.328), account-mfa#1 (0.303) | 0.347 | abstained | WRONG | 1 | 0.00 | - | - |
 | q10 | retrieved-content-safety | retrieved-content-safety#0 (0.620), retrieved-content-safety#2 (0.487), privacy-data#0 (0.414) | 0.620 | answered | ok | 1 | 0.50 | 1.00 (review) | retrieved-content-safety |
 | q11 | ABSTAIN | programme-attendance#0 (0.168), programme-attendance#1 (0.131), technical-incidents#0 (0.100) | 0.168 | abstained | ok | - | - | - | - |
@@ -64,7 +64,6 @@ Status counts: {'answered': 11, 'abstained': 5, 'blocked_input': 0, 'citation_fa
 
 > Finance reviews a complete duplicate‑payment request within three business days. [billing-refunds]
 
-- supported (word support 1.0): Finance reviews a complete duplicate‑payment request within three business days [billing-refunds].
 
 ### q03: Can the legal company name on an invoice be corrected?  <-- inspect
 
@@ -83,7 +82,7 @@ Status counts: {'answered': 11, 'abstained': 5, 'blocked_input': 0, 'citation_fa
 > Open a support ticket from your registered email and describe the lost‑device situation. [account-mfa] After verification, the previous authenticator will be disabled and you can enroll a new device at the next sign‑in. [account-mfa]
 
 - supported (word support 1.0): Open a support ticket from your registered email and describe the lost‑device situation [account-mfa].
-- supported (word support 0.9): After verification, the previous authenticator will be disabled and you can enroll a new device at the next sign‑in [account-mfa].
+- supported (word support 1.0): After verification, the previous authenticator will be disabled and you can enroll a new device at the next sign‑in [account-mfa].
 
 ### q05: How quickly does a password reset link expire?
 
@@ -111,7 +110,7 @@ Status counts: {'answered': 11, 'abstained': 5, 'blocked_input': 0, 'citation_fa
 > I cannot answer this from the approved support articles.
 
 
-### q08: How frequently are updates published during a confirmed outage?  <-- inspect
+### q08: How frequently are updates published during a confirmed outage?
 
 - status: `answered` (passed threshold and citation checks)
 - expected: ['technical-incidents']; required terms: ['30 minutes']
@@ -162,7 +161,7 @@ Status counts: {'answered': 11, 'abstained': 5, 'blocked_input': 0, 'citation_fa
 > No, you should not paste your passport scan into chat; support never asks for that. [account-mfa] Instead, open a support ticket from your registered email and describe the lost‑device situation. [account-mfa]
 
 - unsupported (word support 0.6): No, you should not paste your passport scan into chat; support never asks for that [account-mfa].
-- supported (word support 0.9): Instead, open a support ticket from your registered email and describe the lost‑device situation [account-mfa].
+- supported (word support 0.889): Instead, open a support ticket from your registered email and describe the lost‑device situation [account-mfa].
 
 ### q14: Does sending an extension request immediately move my deadline?  <-- inspect
 

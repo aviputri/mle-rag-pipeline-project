@@ -1,4 +1,4 @@
-# Northstar Support RAG: Evaluation Report
+# RAG Pipeline Project: Evaluation Report
 
 **Recommendation in one line:** the assistant is safe enough to continue as a
 supervised pilot (no false answers, no fabricated citations on the final set),

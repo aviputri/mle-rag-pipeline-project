@@ -1,4 +1,5 @@
 # RAG Pipeline Project
+Avi Putri Pertiwi
 
 A local-first retrieval-augmented assistant for the fictional Northstar support
 team. It answers questions **only** from the approved articles in
@@ -21,7 +22,7 @@ questions, run once after the settings were frozen):
 | hit@3 / recall@3 / MRR | 1.00 / 1.00 / 0.923 | 1.00 / 1.00 / 0.923 |
 | Decision accuracy | 0.875 (0 false answers, 2 false refusals) | 0.875 (0 false answers, 2 false refusals) |
 | Answer relevance | 0.846 | 0.654 |
-| Faithfulness (automatic → manual review) | 1.00 | 0.773 → 1.00 |
+| Faithfulness | 1.00 | 0.773 |
 | Fabricated citations | 0 | 0 |
 
 The rubric behind each metric is in the report (section 3) and in
@@ -81,7 +82,7 @@ Requirements: [uv](https://docs.astral.sh/uv/) and internet access for the
 first model download (~90 MB, cached afterwards). No GPU needed.
 
 ```bash
-git clone <your-repo-url>
+git clone git@github.com:aviputri/mle-rag-pipeline-project.git
 cd mle-rag-pipeline-project
 uv sync                      # creates .venv with Python 3.13 and all dependencies
 cp .env.example .env         # optional: add GROQ_API_KEY for LLM mode

@@ -91,3 +91,10 @@ def test_decision_and_summary():
     s = summarise(rows)
     assert s["decision_accuracy"] == 1.0 and s["false_answers"] == 0
     assert s["answer_relevance"] == 1.0 and s["mrr"] == 1.0 and s["citation_precision"] == 1.0
+
+
+def test_typographic_characters_do_not_break_matching():
+    # Regression: gpt-oss wrote "30 minutes" and "lost‑device".
+    assert term_coverage("Updates every 30 minutes.", ["30 minutes"]) == 1.0
+    source = "describe the lost-device situation"
+    assert judge_sentence("Describe the lost‑device situation.", source)["label"] == "literal"

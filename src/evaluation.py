@@ -2,6 +2,7 @@
 
     uv run python -m src.evaluation --mode extractive   # deterministic, no key
     uv run python -m src.evaluation --mode llm          # Groq (needs GROQ_API_KEY)
+    uv run python -m src.evaluation --mode llm --rescore   # metrics only, same answers
 
 Run this once per mode, AFTER the settings are frozen (TOP_K, MIN_SCORE,
 prompt). Do not change settings based on these results; report them instead.
@@ -69,6 +70,20 @@ DEFAULT_OUT_DIR = ROOT / "reports" / "evaluation"
 SUPPORT_THRESHOLD = 0.8
 
 _CITATION_RE = re.compile(r"\[[^\[\]]+\]")
+# LLMs often output typographic characters (gpt-oss writes "30\u202fminutes",
+# "lost\u2011device"). Mapped to plain ASCII before ANY matching, otherwise
+# "30 minutes" is not found in "30\u202fminutes". (Found in the first LLM run;
+# fixed in the scorer only, then the saved answers were re-scored.)
+_UNICODE_MAP = str.maketrans({
+    "\u00a0": " ", "\u2007": " ", "\u2009": " ", "\u200a": " ", "\u202f": " ",
+    "\u2010": "-", "\u2011": "-", "\u2012": "-", "\u2013": "-", "\u2014": "-",
+    "\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"',
+})
+
+
+def plain(text: str) -> str:
+    """Replace typographic spaces, hyphens and quotes with ASCII equivalents."""
+    return text.translate(_UNICODE_MAP)
 _NUMBER_RE = re.compile(r"\d+(?:[.,]\d+)?")
 
 
@@ -77,7 +92,7 @@ _NUMBER_RE = re.compile(r"\d+(?:[.,]\d+)?")
 
 def normalise(text: str) -> str:
     """Lower-case, single spaces, no citations, no backticks: for literal matching."""
-    text = _CITATION_RE.sub(" ", text).replace("`", "")
+    text = _CITATION_RE.sub(" ", plain(text)).replace("`", "")
     return " ".join(text.lower().split())
 
 
@@ -114,6 +129,7 @@ def judge_sentence(sentence: str, support: str) -> dict:
     if clean and clean in support_norm:
         return {"sentence": sentence, "label": "literal", "word_support": 1.0}
 
+    # (clean and support_norm are already ASCII-normalised by normalise()).
     words = {stem(w) for w in content_words(clean)}
     support_words = {stem(w) for w in content_words(support_norm)}
     share = (len(words & support_words) / len(words)) if words else 0.0
@@ -154,7 +170,7 @@ def term_coverage(answer: str, terms: list[str]) -> float | None:
     """Answer relevance rubric: share of required terms present in the answer."""
     if not terms:
         return None
-    lowered = answer.lower()
+    lowered = plain(answer).lower()
     return sum(t.lower() in lowered for t in terms) / len(terms)
 
 
@@ -194,6 +210,7 @@ def evaluate_case(case: dict, result: RAGAnswer, chunk_text: dict[str, str]) -> 
         "citations": result.citations,
         "invalid_citations": result.invalid_citations,
         "safety_events": result.safety_events,
+        "context_ids": result.context_ids,
     }
 
     if not should_abstain:
@@ -267,7 +284,9 @@ def markdown(rows: list[dict], summary: dict, meta: dict) -> str:
         f"- Embedding: `{meta['embedding_model']}` @ `{meta['embedding_revision']}`",
         f"- TOP_K = {meta['top_k']}, MIN_SCORE = {meta['min_score']} (frozen after calibration)",
         f"- System prompt sha1: `{meta['prompt_sha1']}`, git commit: `{meta['git_commit']}`",
-        f"- Run at {meta['run_at']} ({meta['seconds']} s)",
+        f"- Run at {meta['run_at']} ({meta['seconds']} s)"
+        + (f"; re-scored {meta['rescored_at']} from the saved answers (scorer fix, "
+           f"no regeneration)" if meta.get("rescored_at") else ""),
         "",
         "## Summary",
         "",
@@ -330,16 +349,59 @@ def git_commit() -> str:
 # ------------------------------------------------------------------------- CLI
 
 
+def row_to_answer(row: dict) -> RAGAnswer:
+    """Rebuild the answer record from a saved results row (for --rescore)."""
+    dropped = {e.split()[1].rstrip(":") for e in row.get("safety_events", [])}
+    context_ids = row.get("context_ids") or (
+        [r["chunk_id"] for r in row["retrieved"] if r["chunk_id"] not in dropped]
+        if row["status"] in ("answered", "citation_failed") else []
+    )
+    return RAGAnswer.model_construct(
+        question=row["question"], status=row["status"], answer=row["answer"],
+        reason=row["reason"], citations=row["citations"],
+        invalid_citations=row["invalid_citations"], retrieved=row["retrieved"],
+        context_ids=context_ids, top_score=row["top_score"],
+        safety_events=row["safety_events"], mode="", raw_answer=row.get("raw_answer", ""),
+    )
+
+
+def write_outputs(out_dir: Path, name: str, rows, summary, meta) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / f"results_{name}.json").write_text(
+        json.dumps({"meta": meta, "summary": summary, "rows": rows}, indent=2))
+    (out_dir / f"results_{name}.md").write_text(markdown(rows, summary, meta))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Evaluate the RAG pipeline.")
     parser.add_argument("--questions", type=Path, default=DEFAULT_QUESTIONS)
     parser.add_argument("--mode", choices=["extractive", "llm"], default="extractive")
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
+    parser.add_argument("--rescore", action="store_true",
+                        help="recompute metrics from the saved results file "
+                             "WITHOUT generating new answers (scorer fixes only)")
     args = parser.parse_args()
+    name = "extractive" if args.mode == "extractive" else "llm"
+    chunk_text = {c.chunk_id: c.text for c in build_chunks()}
+
+    if args.rescore:
+        # Same answers, same retrieval; only the metric code runs again.
+        saved = json.loads((args.out_dir / f"results_{name}.json").read_text())
+        cases = {c["id"]: c for c in json.loads(args.questions.read_text())}
+        rows = [evaluate_case(cases[r["id"]], row_to_answer(r), chunk_text) for r in saved["rows"]]
+        for new, old in zip(rows, saved["rows"]):
+            new["raw_answer"] = old.get("raw_answer", "")
+        meta = {**saved["meta"], "rescored_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+                "rescored_with_commit": git_commit()}
+        summary = summarise(rows)
+        write_outputs(args.out_dir, name, rows, summary, meta)
+        print("Rescored (no new answers generated):")
+        for key in ("decision_accuracy", "answer_relevance", "faithfulness",
+                    "faithful_answers", "answers_needing_review"):
+            print(f"  {key}: {saved['summary'][key]} -> {summary[key]}")
+        return
 
     cases = json.loads(args.questions.read_text())
-    # chunk_id -> text, for judging answers against exactly what was retrieved.
-    chunk_text = {c.chunk_id: c.text for c in build_chunks()}
     # The same pipeline class the "ask" command uses.
     pipeline = RAGPipeline(mode=args.mode)
 
@@ -373,11 +435,7 @@ def main() -> None:
         "seconds": round(time.time() - start, 1),
     }
 
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-    name = "extractive" if args.mode == "extractive" else "llm"
-    (args.out_dir / f"results_{name}.json").write_text(
-        json.dumps({"meta": meta, "summary": summary, "rows": rows}, indent=2))
-    (args.out_dir / f"results_{name}.md").write_text(markdown(rows, summary, meta))
+    write_outputs(args.out_dir, name, rows, summary, meta)
 
     print("\nSummary:")
     for key, value in summary.items():

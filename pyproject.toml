@@ -24,3 +24,5 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+# Only our tests; the reference solution has its own (uv run pytest solution/tests).
+testpaths = ["tests"]

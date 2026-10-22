@@ -1,0 +1,6 @@
+mode=llm:groq/openai/gpt-oss-20b  status=answered  top_score=0.5499389395495466  min_score=0.47
+reason: passed threshold and citation checks
+retrieved: invoice-corrections#1 (0.550), billing-refunds#2 (0.533), billing-refunds#0 (0.446)
+
+You must provide the invoice number and both payment references. [billing-refunds]  
+This must be done within 30 calendar days of the second charge. [billing-refunds]

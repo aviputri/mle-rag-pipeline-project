@@ -1,0 +1,5 @@
+mode=llm:groq/openai/gpt-oss-20b  status=blocked_input  top_score=None  min_score=0.47
+reason: question contains instruction-override text
+retrieved: -
+
+Request blocked by input policy.

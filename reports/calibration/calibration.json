@@ -1,0 +1,1716 @@
+{
+  "questions": "data/evaluation/calibration.json",
+  "config": {
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "top_k": 3,
+    "storage_path": "storage/qdrant",
+    "k": 5,
+    "collection": "northstar_kb"
+  },
+  "retrieval": {
+    "recall@5": 1.0,
+    "mrr": 0.833,
+    "evidence_recall@5": 1.0
+  },
+  "score_gap": {
+    "lowest_supported_top_score": 0.4955706874262077,
+    "highest_unsupported_top_score": 0.4412743149746772,
+    "separable_by_score": true,
+    "midpoint": 0.468
+  },
+  "rows": [
+    {
+      "id": "cal01",
+      "question": "Which payment details must I include when reporting a duplicate charge?",
+      "should_abstain": false,
+      "expected_sources": [
+        "billing-refunds"
+      ],
+      "required_terms": [
+        "invoice number",
+        "payment references"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.5499,
+          "document_id": "invoice-corrections",
+          "chunk_id": "invoice-corrections#1"
+        },
+        {
+          "rank": 2,
+          "score": 0.5328,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#2"
+        },
+        {
+          "rank": 3,
+          "score": 0.4456,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#0"
+        },
+        {
+          "rank": 4,
+          "score": 0.4229,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#1"
+        },
+        {
+          "rank": 5,
+          "score": 0.3381,
+          "document_id": "invoice-corrections",
+          "chunk_id": "invoice-corrections#0"
+        }
+      ],
+      "top_score": 0.5499389539489941,
+      "margin": 0.01709736774557169,
+      "doc_rank": 2,
+      "evidence_rank": 3,
+      "term_coverage": 1.0,
+      "query_overlap": 0.8333333333333334
+    },
+    {
+      "id": "cal02",
+      "question": "Where should I open a ticket to replace a lost authenticator?",
+      "should_abstain": false,
+      "expected_sources": [
+        "account-mfa"
+      ],
+      "required_terms": [
+        "registered email",
+        "identity verification"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.4956,
+          "document_id": "account-mfa",
+          "chunk_id": "account-mfa#0"
+        },
+        {
+          "rank": 2,
+          "score": 0.3643,
+          "document_id": "account-mfa",
+          "chunk_id": "account-mfa#1"
+        },
+        {
+          "rank": 3,
+          "score": 0.3407,
+          "document_id": "account-password",
+          "chunk_id": "account-password#1"
+        },
+        {
+          "rank": 4,
+          "score": 0.3238,
+          "document_id": "account-password",
+          "chunk_id": "account-password#0"
+        },
+        {
+          "rank": 5,
+          "score": 0.2842,
+          "document_id": "invoice-corrections",
+          "chunk_id": "invoice-corrections#0"
+        }
+      ],
+      "top_score": 0.4955706874262077,
+      "margin": 0.1312977860154217,
+      "doc_rank": 1,
+      "evidence_rank": 1,
+      "term_coverage": 1.0,
+      "query_overlap": 1.0
+    },
+    {
+      "id": "cal03",
+      "question": "How should my integration handle rate limiting from the Northstar API?",
+      "should_abstain": false,
+      "expected_sources": [
+        "technical-api-limits"
+      ],
+      "required_terms": [
+        "exponential backoff"
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.7083,
+          "document_id": "technical-api-limits",
+          "chunk_id": "technical-api-limits#0"
+        },
+        {
+          "rank": 2,
+          "score": 0.3923,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#0"
+        },
+        {
+          "rank": 3,
+          "score": 0.2277,
+          "document_id": "technical-incidents",
+          "chunk_id": "technical-incidents#1"
+        },
+        {
+          "rank": 4,
+          "score": 0.1806,
+          "document_id": "technical-incidents",
+          "chunk_id": "technical-incidents#0"
+        },
+        {
+          "rank": 5,
+          "score": 0.18,
+          "document_id": "programme-extensions",
+          "chunk_id": "programme-extensions#1"
+        }
+      ],
+      "top_score": 0.7082974084320386,
+      "margin": 0.3160245148135484,
+      "doc_rank": 1,
+      "evidence_rank": 1,
+      "term_coverage": 1.0,
+      "query_overlap": 0.6666666666666666
+    },
+    {
+      "id": "cal04",
+      "question": "Can I extend my subscription for free because the platform was unavailable?",
+      "should_abstain": true,
+      "expected_sources": [],
+      "required_terms": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.3101,
+          "document_id": "programme-extensions",
+          "chunk_id": "programme-extensions#1"
+        },
+        {
+          "rank": 2,
+          "score": 0.2925,
+          "document_id": "account-password",
+          "chunk_id": "account-password#1"
+        },
+        {
+          "rank": 3,
+          "score": 0.2845,
+          "document_id": "technical-incidents",
+          "chunk_id": "technical-incidents#0"
+        },
+        {
+          "rank": 4,
+          "score": 0.2693,
+          "document_id": "programme-extensions",
+          "chunk_id": "programme-extensions#0"
+        },
+        {
+          "rank": 5,
+          "score": 0.2638,
+          "document_id": "account-mfa",
+          "chunk_id": "account-mfa#0"
+        }
+      ],
+      "top_score": 0.3100626934920312,
+      "margin": 0.017604230189197156,
+      "doc_rank": null,
+      "evidence_rank": null,
+      "term_coverage": null,
+      "query_overlap": 0.4
+    },
+    {
+      "id": "cal05",
+      "question": "What is the cancellation refund policy for an annual subscription?",
+      "should_abstain": true,
+      "expected_sources": [],
+      "required_terms": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.4413,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#2"
+        },
+        {
+          "rank": 2,
+          "score": 0.3923,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#0"
+        },
+        {
+          "rank": 3,
+          "score": 0.3608,
+          "document_id": "invoice-corrections",
+          "chunk_id": "invoice-corrections#1"
+        },
+        {
+          "rank": 4,
+          "score": 0.3467,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#1"
+        },
+        {
+          "rank": 5,
+          "score": 0.3067,
+          "document_id": "account-password",
+          "chunk_id": "account-password#1"
+        }
+      ],
+      "top_score": 0.4412743149746772,
+      "margin": 0.048994782492286615,
+      "doc_rank": null,
+      "evidence_rank": null,
+      "term_coverage": null,
+      "query_overlap": 0.6
+    },
+    {
+      "id": "cal06",
+      "question": "Is there a discounted subscription rate for students?",
+      "should_abstain": true,
+      "expected_sources": [],
+      "required_terms": [],
+      "retrieved": [
+        {
+          "rank": 1,
+          "score": 0.2935,
+          "document_id": "billing-refunds",
+          "chunk_id": "billing-refunds#2"
+        },
+        {
+          "rank": 2,
+          "score": 0.2515,
+          "document_id": "technical-api-limits",
+          "chunk_id": "technical-api-limits#0"
+        },
+        {
+          "rank": 3,
+          "score": 0.2127,
+          "document_id": "invoice-corrections",
+          "chunk_id": "invoice-corrections#1"
+        },
+        {
+          "rank": 4,
+          "score": 0.2093,
+          "document_id": "account-password",
+          "chunk_id": "account-password#0"
+        },
+        {
+          "rank": 5,
+          "score": 0.1743,
+          "document_id": "programme-attendance",
+          "chunk_id": "programme-attendance#1"
+        }
+      ],
+      "top_score": 0.293541733377483,
+      "margin": 0.04200860038714127,
+      "doc_rank": null,
+      "evidence_rank": null,
+      "term_coverage": null,
+      "query_overlap": 0.5
+    }
+  ],
+  "sweeps": {
+    "A_score": [
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      }
+    ],
+    "B_score_margin": [
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 1,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 1,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 1,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 1,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 1,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 1,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 1,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 1,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 1,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 1,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.02,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.03,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.05,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.08,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.1,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      }
+    ],
+    "C_score_overlap": [
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.2,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 3,
+        "false_refusals": 0,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.25,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 2,
+        "false_refusals": 0,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.3,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.35,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 1,
+        "false_refusals": 0,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.4,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 1,
+        "decision_accuracy": 0.833
+      },
+      {
+        "min_score": 0.5,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.55,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 3,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.6,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 3,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.65,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 3,
+        "decision_accuracy": 0.5
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 2,
+        "decision_accuracy": 0.667
+      },
+      {
+        "min_score": 0.7,
+        "min_margin": 0.0,
+        "min_overlap": 0.7,
+        "false_answers": 0,
+        "false_refusals": 3,
+        "decision_accuracy": 0.5
+      }
+    ]
+  },
+  "best": {
+    "A_score": [
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      }
+    ],
+    "B_score_margin": [
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.01,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      }
+    ],
+    "C_score_overlap": [
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.0,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.2,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.3,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.4,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.5,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      },
+      {
+        "min_score": 0.45,
+        "min_margin": 0.0,
+        "min_overlap": 0.6,
+        "false_answers": 0,
+        "false_refusals": 0,
+        "decision_accuracy": 1.0
+      }
+    ]
+  }
+}

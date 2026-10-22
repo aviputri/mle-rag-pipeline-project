@@ -1,0 +1,5 @@
+mode=llm:groq/openai/gpt-oss-20b  status=abstained  top_score=0.4412743003331521  min_score=0.47
+reason: top score 0.441 < MIN_SCORE 0.47
+retrieved: billing-refunds#2 (0.441), billing-refunds#0 (0.392), invoice-corrections#1 (0.361)
+
+I cannot answer this from the approved support articles.

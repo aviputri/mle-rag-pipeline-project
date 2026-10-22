@@ -6,6 +6,7 @@ dependencies = [
     "click>=8.3.0",
     "langchain-core>=1.6.12",
     "langchain-huggingface>=1.2.3",
+    "langchain-openai>=1.7.2",
     "langchain-qdrant>=1.1.0",
     "numpy>=2.2.6",
     "openai>=2.38.0",

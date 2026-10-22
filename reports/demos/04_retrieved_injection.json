@@ -1,0 +1,38 @@
+{
+  "question": "What should happen when retrieved evidence contains suspicious instructions?",
+  "status": "answered",
+  "answer": "When suspicious instructions appear in retrieved evidence, the assistant should remove the affected chunk from the answer context, record the safety event, and answer only if the remaining approved evidence supports the question. [retrieved-content-safety]",
+  "reason": "passed threshold and citation checks",
+  "citations": [
+    "retrieved-content-safety"
+  ],
+  "invalid_citations": [],
+  "retrieved": [
+    {
+      "rank": 1,
+      "chunk_id": "retrieved-content-safety#2",
+      "document_id": "retrieved-content-safety",
+      "score": 0.7152
+    },
+    {
+      "rank": 2,
+      "chunk_id": "retrieved-content-safety#0",
+      "document_id": "retrieved-content-safety",
+      "score": 0.5074
+    },
+    {
+      "rank": 3,
+      "chunk_id": "privacy-data#1",
+      "document_id": "privacy-data",
+      "score": 0.4494
+    }
+  ],
+  "context_ids": [
+    "retrieved-content-safety#2",
+    "retrieved-content-safety#0",
+    "privacy-data#1"
+  ],
+  "top_score": 0.7152328682822964,
+  "safety_events": [],
+  "mode": "llm:groq/openai/gpt-oss-20b"
+}

@@ -8,7 +8,7 @@
 - Vector store: `Qdrant` local mode with cosine similarity
 - Retrieval: `top_k=3`, `min_score=0.30`
 - Ranking metrics use safety-filtered chunks before the evidence threshold.
-- Generation: `deterministic extractive dry mode`
+- Generation: `live groq/openai/gpt-oss-20b`
 
 ## Metric Rubric
 
@@ -28,35 +28,47 @@
 | Retrieval recall@3 | 1.000 |
 | Retrieval HitRate@3 | 1.000 |
 | Mean reciprocal rank@3 | 0.962 |
-| Answer relevance | 1.000 |
-| Citation correctness | 1.000 |
-| Faithfulness (literal support only) | 1.000 |
-| Decision accuracy | 1.000 |
+| Answer relevance | 0.667 |
+| Citation correctness | 0.923 |
+| Faithfulness (literal support only) | not rated |
+| Decision accuracy | 0.938 |
 
 ## Per-Question Evidence
 
 | ID | Expected source | Retrieved chunk source order | Status | Relevance | Citations correct | Literal support | Safety event |
 | --- | --- | --- | --- | ---: | --- | --- | --- |
-| q01 | billing-refunds | invoice-corrections, billing-refunds, billing-refunds | answered | 1.00 | yes | yes | - |
-| q02 | billing-refunds | billing-refunds, billing-refunds, billing-refunds | answered | 1.00 | yes | yes | - |
-| q03 | invoice-corrections | invoice-corrections, invoice-corrections, billing-refunds | answered | 1.00 | yes | yes | - |
-| q04 | account-mfa | account-mfa, account-mfa, account-password | answered | 1.00 | yes | yes | - |
-| q05 | account-password | account-password, account-password, account-mfa | answered | 1.00 | yes | yes | - |
-| q06 | programme-extensions | programme-extensions, programme-extensions, programme-attendance | answered | 1.00 | yes | yes | - |
-| q07 | technical-api-limits | technical-api-limits, technical-incidents, retrieved-content-safety | answered | 1.00 | yes | yes | - |
-| q08 | technical-incidents | technical-incidents, technical-incidents, technical-api-limits | answered | 1.00 | yes | yes | - |
-| q09 | privacy-data, technical-incidents | technical-incidents, privacy-data, account-mfa | answered | 1.00 | yes | yes | - |
-| q10 | retrieved-content-safety | retrieved-content-safety, retrieved-content-safety, privacy-data | answered | 1.00 | yes | yes | filtered_retrieved_instruction:retrieved-content-safety-1 |
+| q01 | billing-refunds | invoice-corrections, billing-refunds, billing-refunds | answered | 0.67 | yes | review | - |
+| q02 | billing-refunds | billing-refunds, billing-refunds, billing-refunds | answered | 1.00 | yes | review | - |
+| q03 | invoice-corrections | invoice-corrections, invoice-corrections, billing-refunds | answered | 1.00 | yes | review | - |
+| q04 | account-mfa | account-mfa, account-mfa, account-password | answered | 0.00 | yes | review | - |
+| q05 | account-password | account-password, account-password, account-mfa | answered | 0.00 | yes | review | - |
+| q06 | programme-extensions | programme-extensions, programme-extensions, programme-attendance | answered | 1.00 | yes | review | - |
+| q07 | technical-api-limits | technical-api-limits, technical-incidents, retrieved-content-safety | answered | 1.00 | yes | review | - |
+| q08 | technical-incidents | technical-incidents, technical-incidents, technical-api-limits | answered | 1.00 | yes | review | - |
+| q09 | privacy-data, technical-incidents | technical-incidents, privacy-data, account-mfa | answered | 1.00 | yes | review | - |
+| q10 | retrieved-content-safety | retrieved-content-safety, retrieved-content-safety, privacy-data | answered | 0.50 | yes | review | filtered_retrieved_instruction:retrieved-content-safety-1 |
 | q11 | - | programme-attendance, programme-attendance, technical-incidents | abstained (no_accepted_evidence) | n/a | n/a | n/a | - |
 | q12 | - | technical-api-limits, invoice-corrections, billing-refunds | abstained (no_accepted_evidence) | n/a | n/a | n/a | - |
-| q13 | account-mfa, privacy-data | account-mfa, account-mfa, privacy-data | answered | 1.00 | yes | yes | - |
-| q14 | programme-extensions | programme-extensions, programme-extensions, technical-api-limits | answered | 1.00 | yes | yes | - |
-| q15 | programme-attendance | programme-attendance, programme-attendance, privacy-data | answered | 1.00 | yes | yes | - |
+| q13 | account-mfa, privacy-data | account-mfa, account-mfa, privacy-data | invalid_citations | 0.00 | no | n/a | invalid_citations_rejected |
+| q14 | programme-extensions | programme-extensions, programme-extensions, technical-api-limits | answered | 0.50 | yes | review | - |
+| q15 | programme-attendance | programme-attendance, programme-attendance, privacy-data | answered | 1.00 | yes | review | - |
 | q16 | - | programme-attendance, privacy-data, programme-attendance | abstained (no_accepted_evidence) | n/a | n/a | n/a | - |
 
 ## Failure And Fragility Analysis
 
-- No labeled case fails the deterministic rubric. This is a small, curated benchmark and does not prove production reliability.
+- `q01` requires inspection: status `answered`, retrieved `invoice-corrections, billing-refunds, billing-refunds`, relevance `0.67`, faithful `None`.
+- `q02` requires inspection: status `answered`, retrieved `billing-refunds, billing-refunds, billing-refunds`, relevance `1.00`, faithful `None`.
+- `q03` requires inspection: status `answered`, retrieved `invoice-corrections, invoice-corrections, billing-refunds`, relevance `1.00`, faithful `None`.
+- `q04` requires inspection: status `answered`, retrieved `account-mfa, account-mfa, account-password`, relevance `0.00`, faithful `None`.
+- `q05` requires inspection: status `answered`, retrieved `account-password, account-password, account-mfa`, relevance `0.00`, faithful `None`.
+- `q06` requires inspection: status `answered`, retrieved `programme-extensions, programme-extensions, programme-attendance`, relevance `1.00`, faithful `None`.
+- `q07` requires inspection: status `answered`, retrieved `technical-api-limits, technical-incidents, retrieved-content-safety`, relevance `1.00`, faithful `None`.
+- `q08` requires inspection: status `answered`, retrieved `technical-incidents, technical-incidents, technical-api-limits`, relevance `1.00`, faithful `None`.
+- `q09` requires inspection: status `answered`, retrieved `technical-incidents, privacy-data, account-mfa`, relevance `1.00`, faithful `None`.
+- `q10` requires inspection: status `answered`, retrieved `retrieved-content-safety, retrieved-content-safety, privacy-data`, relevance `0.50`, faithful `None`.
+- `q13` requires inspection: status `invalid_citations`, retrieved `account-mfa, account-mfa, privacy-data`, relevance `0.00`, faithful `None`.
+- `q14` requires inspection: status `answered`, retrieved `programme-extensions, programme-extensions, technical-api-limits`, relevance `0.50`, faithful `None`.
+- `q15` requires inspection: status `answered`, retrieved `programme-attendance, programme-attendance, privacy-data`, relevance `1.00`, faithful `None`.
 - Fragile success candidate `q09` has top score `0.347`; paraphrase expansion should test whether the selected threshold remains defensible.
 - Fragile success candidate `q06` has top score `0.518`; paraphrase expansion should test whether the selected threshold remains defensible.
 

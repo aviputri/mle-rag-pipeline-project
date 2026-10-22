@@ -83,6 +83,7 @@ class RAGAnswer(BaseModel):
     top_score: float | None = None                                # best SAFE score
     safety_events: list[str] = Field(default_factory=list)
     mode: str = ""                                                # extractive / llm:groq/...
+    raw_answer: str = ""                                          # generator output before checks (to inspect failures)
 
 
 class RAGPipeline:
@@ -143,7 +144,7 @@ class RAGPipeline:
         context_ids = [h.chunk_id for h in safe_hits]
         if is_no_answer(text):
             return result("abstained", NO_ANSWER, "generator found no supporting evidence",
-                          retrieved=retrieved, context_ids=context_ids,
+                          raw_answer=text, retrieved=retrieved, context_ids=context_ids,
                           top_score=top_score, safety_events=events)
 
         # 6. Citation check against what was actually given to the generator.
@@ -152,13 +153,13 @@ class RAGPipeline:
             reason = (f"fabricated citations {check.invalid}" if check.invalid
                       else "answer has no citation")
             return result("citation_failed", NO_ANSWER, reason,
-                          citations=check.valid, invalid_citations=check.invalid,
+                          raw_answer=text, citations=check.valid, invalid_citations=check.invalid,
                           retrieved=retrieved, context_ids=context_ids,
                           top_score=top_score, safety_events=events)
 
         # 7. All checks passed.
         return result("answered", text, "passed threshold and citation checks",
-                      citations=check.valid, retrieved=retrieved,
+                      raw_answer=text, citations=check.valid, retrieved=retrieved,
                       context_ids=context_ids, top_score=top_score, safety_events=events)
 
 
